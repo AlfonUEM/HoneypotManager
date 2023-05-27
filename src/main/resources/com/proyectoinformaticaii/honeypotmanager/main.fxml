@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyectoinformaticaii.honeypotmanager.MainController">
+   <children>
+      <BorderPane prefHeight="800" prefWidth="1300">
+         <top>
+            <MenuBar prefHeight="0.0" prefWidth="646.0" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Menú">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onClickMenuConfiguracion" text="Configuración" />
+                    <MenuItem mnemonicParsing="false" onAction="#onClickMenuDesconectar" text="Desconectar" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <TableView fx:id="tableView">
+              <columns>
+                  <TableColumn fx:id="columnaID" prefWidth="44.66666603088379" text="ID" />
+                <TableColumn fx:id="columnaHash" prefWidth="500.0" text="Hash" />
+                <TableColumn fx:id="columnaNombreFichero" prefWidth="200.0" text="Nombre fichero" />
+                  <TableColumn fx:id="columnaFechaDeteccion" prefWidth="150" text="Fecha Detección" />
+                  <TableColumn fx:id="columnaIP" prefWidth="150" text="IP Origen" />
+                  <TableColumn fx:id="columnaAnalizado" prefWidth="100.0" text="Analizado?" />
+                  <TableColumn fx:id="columnaMalicioso" prefWidth="100.0" text="Malicioso?" />
+              </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#onClickBorrar" text="Borrar" />
+                      <MenuItem mnemonicParsing="false" onAction="#onClickRefrescar" text="Refrescar" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

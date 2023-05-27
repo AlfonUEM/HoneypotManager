@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="264.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyectoinformaticaii.honeypotmanager.LoginController">
+   <children>
+      <GridPane layoutY="1.0" prefHeight="249.0" prefWidth="407.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="123.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="317.0" minWidth="10.0" prefWidth="307.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="IP   ">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Label>
+            <Label text="BBDD   " GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Label>
+            <Label text="Usuario   " GridPane.rowIndex="2">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Label>
+            <Label text="Contraeña   " GridPane.rowIndex="3">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Label>
+            <CheckBox fx:id="check_recordar_datos" mnemonicParsing="false" text="Recordar  datos" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></CheckBox>
+            <Button mnemonicParsing="false" onAction="#onClickOlvidarDatos" text="Olvidar Datos" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#onClickConectar" text="Conectar" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Button>
+            <TextField fx:id="textfield_ip" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></TextField>
+            <TextField fx:id="textfield_bbdd" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></TextField>
+            <TextField fx:id="textfield_usuario" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></TextField>
+            <PasswordField fx:id="textfield_pass" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </PasswordField>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
