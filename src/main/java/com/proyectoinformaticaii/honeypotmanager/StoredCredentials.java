@@ -8,14 +8,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-public class AlmacenCredenciales {
+public class StoredCredentials {
     private String ip = ""; 
     private String bbdd = "";
     private String usuario = "";
     private String pass = "";
     private String ruta_fichero = "honeypot_almacen_credenciales";
     
-    public AlmacenCredenciales(){
+    public StoredCredentials(){
         this.leer_de_fichero();
     }
     

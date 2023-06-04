@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
-public class ConfiguracionController {
+public class ConfigurationController {
 
     @FXML
     private Button botonConfiguracionCancelar;
@@ -16,7 +16,7 @@ public class ConfiguracionController {
     @FXML
     private TextField virusTotalAPIKey;
 
-    private BaseDeDatos baseDeDatos = null;
+    private Database baseDeDatos = null;
 
 
     @FXML
@@ -35,7 +35,7 @@ public class ConfiguracionController {
         
     }
    
-    public void setBaseDeDatos(BaseDeDatos baseDeDatos){
+    public void setBaseDeDatos(Database baseDeDatos){
         this.baseDeDatos = baseDeDatos;
     }
     

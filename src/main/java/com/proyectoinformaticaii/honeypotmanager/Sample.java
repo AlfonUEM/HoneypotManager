@@ -3,7 +3,7 @@ package com.proyectoinformaticaii.honeypotmanager;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class Muestra {
+public class Sample {
     
     private int id;
     private SimpleStringProperty nombre_fichero;
@@ -14,7 +14,7 @@ public class Muestra {
     private boolean malicioso;
     
     
-    public Muestra(int id, SimpleStringProperty nombre_fichero, SimpleStringProperty hash, SimpleStringProperty remitenteIp, SimpleStringProperty fechaDeteccion, boolean analizado, boolean malicioso){
+    public Sample(int id, SimpleStringProperty nombre_fichero, SimpleStringProperty hash, SimpleStringProperty remitenteIp, SimpleStringProperty fechaDeteccion, boolean analizado, boolean malicioso){
         this.id = id;
         this.nombre_fichero = nombre_fichero;
         this.hash = hash;

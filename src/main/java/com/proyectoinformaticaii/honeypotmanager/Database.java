@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 
-public class BaseDeDatos {
+public class Database {
 
     private Connection conexionMysql = null;
     private String IP = null; 
@@ -20,7 +20,7 @@ public class BaseDeDatos {
     private String pass = null; 
     private String ultimo_error = "";
     
-    public BaseDeDatos(String IP, String baseDeDatos, String usuario, String pass){
+    public Database(String IP, String baseDeDatos, String usuario, String pass){
         this.IP = IP;
         this.baseDeDatos = baseDeDatos;
         this.usuario = usuario;
@@ -55,7 +55,7 @@ public class BaseDeDatos {
             }
             resultSet.close();
         } catch (SQLException ex) {
-            Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return virusTotalAPIKey;
     }
@@ -70,19 +70,19 @@ public class BaseDeDatos {
                 valorRetorno = true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return valorRetorno;
     }
 
     
-    public ArrayList<Muestra> getMuestras(){
-        ArrayList<Muestra> muestras = new ArrayList();
+    public ArrayList<Sample> getMuestras(){
+        ArrayList<Sample> muestras = new ArrayList();
         try {
             Statement statement = conexionMysql.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT id, nombre_fichero, hash, fecha_llegada, remitente_ip, analizado, malicioso from muestras");
             while(resultSet.next()){
-                Muestra muestra = new Muestra(resultSet.getInt("id"),
+                Sample muestra = new Sample(resultSet.getInt("id"),
                                               new SimpleStringProperty(resultSet.getString("nombre_fichero")),
                                               new SimpleStringProperty(resultSet.getString("hash")),
                                               new SimpleStringProperty(resultSet.getString("remitente_ip")),
@@ -93,7 +93,7 @@ public class BaseDeDatos {
             }
             resultSet.close();
         } catch (SQLException ex) {
-            Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return muestras;
     }   
@@ -102,11 +102,11 @@ public class BaseDeDatos {
         try {
             this.conexionMysql.close();
         } catch (SQLException ex) {
-            Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public boolean borrarMuestra(Muestra muestra){
+    public boolean borrarMuestra(Sample muestra){
         boolean valorRetorno = false;
         try {
             PreparedStatement preparedStatement = conexionMysql.prepareStatement("DELETE FROM muestras where id = ?");
@@ -116,7 +116,7 @@ public class BaseDeDatos {
                 valorRetorno = true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return valorRetorno;
     }

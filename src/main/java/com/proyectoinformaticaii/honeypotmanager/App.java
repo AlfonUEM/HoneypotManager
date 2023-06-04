@@ -36,7 +36,7 @@ public class App extends Application {
         launch();
     }
     
-    static void switchToMainWindow(BaseDeDatos baseDeDatos) throws IOException {
+    static void switchToMainWindow(Database baseDeDatos) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         MainController controller = fxmlLoader.getController();

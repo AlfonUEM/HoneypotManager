@@ -24,27 +24,27 @@ import javafx.stage.Stage;
 
 public class MainController implements Initializable{
 
-    private BaseDeDatos baseDeDatos = null;
+    private Database baseDeDatos = null;
     
-    @FXML private TableView<Muestra> tableView;
-    @FXML private TableColumn<Muestra, Integer> columnaID;
-    @FXML private TableColumn<Muestra, SimpleStringProperty> columnaHash;
-    @FXML private TableColumn<Muestra, SimpleStringProperty> columnaNombreFichero;
-    @FXML private TableColumn<Muestra, SimpleStringProperty> columnaIP;
-    @FXML private TableColumn<Muestra, SimpleStringProperty> columnaFechaDeteccion;
-    @FXML private TableColumn<Muestra, Boolean> columnaAnalizado;
-    @FXML private TableColumn<Muestra, Boolean> columnaMalicioso;
+    @FXML private TableView<Sample> tableView;
+    @FXML private TableColumn<Sample, Integer> columnaID;
+    @FXML private TableColumn<Sample, SimpleStringProperty> columnaHash;
+    @FXML private TableColumn<Sample, SimpleStringProperty> columnaNombreFichero;
+    @FXML private TableColumn<Sample, SimpleStringProperty> columnaIP;
+    @FXML private TableColumn<Sample, SimpleStringProperty> columnaFechaDeteccion;
+    @FXML private TableColumn<Sample, Boolean> columnaAnalizado;
+    @FXML private TableColumn<Sample, Boolean> columnaMalicioso;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        columnaID.setCellValueFactory(new PropertyValueFactory<Muestra, Integer>("id"));
-        columnaHash.setCellValueFactory(new PropertyValueFactory<Muestra, SimpleStringProperty>("hash"));
-        columnaNombreFichero.setCellValueFactory(new PropertyValueFactory<Muestra, SimpleStringProperty>("nombre_fichero"));
-        columnaIP.setCellValueFactory(new PropertyValueFactory<Muestra, SimpleStringProperty>("remitenteIp"));      
-        columnaFechaDeteccion.setCellValueFactory(new PropertyValueFactory<Muestra, SimpleStringProperty>("fechaDeteccion"));
-        columnaAnalizado.setCellValueFactory(new PropertyValueFactory<Muestra, Boolean>("analizado"));
-        columnaMalicioso.setCellValueFactory(new PropertyValueFactory<Muestra, Boolean>("malicioso"));
+        columnaID.setCellValueFactory(new PropertyValueFactory<Sample, Integer>("id"));
+        columnaHash.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("hash"));
+        columnaNombreFichero.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("nombre_fichero"));
+        columnaIP.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("remitenteIp"));      
+        columnaFechaDeteccion.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("fechaDeteccion"));
+        columnaAnalizado.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("analizado"));
+        columnaMalicioso.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("malicioso"));
     }
 
 
@@ -53,7 +53,7 @@ public class MainController implements Initializable{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyectoinformaticaii/honeypotmanager/configuracion.fxml"));
         Parent root = loader.load();
         root.setStyle("-fx-font: 13 \"Arial\"; ");
-        ConfiguracionController configuracionControlador = loader.getController();
+        ConfigurationController configuracionControlador = loader.getController();
         configuracionControlador.setBaseDeDatos(this.baseDeDatos);
         configuracionControlador.refrecarDesdeBaseDeDatos();
         Scene scene = new Scene(root);
@@ -70,7 +70,7 @@ public class MainController implements Initializable{
         
     }
     
-    public void setBaseDeDatos(BaseDeDatos baseDeDatos){
+    public void setBaseDeDatos(Database baseDeDatos){
         this.baseDeDatos = baseDeDatos;
     }
     
@@ -80,8 +80,8 @@ public class MainController implements Initializable{
         }
     }    
     
-    public ObservableList<Muestra> convertir_muestras(ArrayList<Muestra> listaMuestras){
-         ObservableList<Muestra> muestras = FXCollections.observableArrayList();
+    public ObservableList<Sample> convertir_muestras(ArrayList<Sample> listaMuestras){
+         ObservableList<Sample> muestras = FXCollections.observableArrayList();
          
          muestras.addAll(listaMuestras);
          
@@ -90,7 +90,7 @@ public class MainController implements Initializable{
 
     @FXML
     private void onClickBorrar(ActionEvent event) {
-        Muestra muestra = this.tableView.getSelectionModel().getSelectedItem();
+        Sample muestra = this.tableView.getSelectionModel().getSelectedItem();
         this.baseDeDatos.borrarMuestra(muestra);
         this.refrescarTabla();
     }

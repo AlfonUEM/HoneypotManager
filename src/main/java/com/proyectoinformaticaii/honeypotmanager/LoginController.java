@@ -25,13 +25,13 @@ public class LoginController implements Initializable {
     @FXML
     private CheckBox check_recordar_datos;
 
-    private AlmacenCredenciales almacenCredenciales;
+    private StoredCredentials almacenCredenciales;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
-        almacenCredenciales = new AlmacenCredenciales();
+        almacenCredenciales = new StoredCredentials();
         textfield_ip.setText( almacenCredenciales.get_ip());
         textfield_bbdd.setText( almacenCredenciales.get_bbdd());
         textfield_usuario.setText( almacenCredenciales.get_usuario());
@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void onClickConectar(ActionEvent event) throws IOException {
-        BaseDeDatos baseDeDatos = new BaseDeDatos(textfield_ip.getText(),
+        Database baseDeDatos = new Database(textfield_ip.getText(),
                                                   textfield_bbdd.getText(),
                                                   textfield_usuario.getText(),
                                                   textfield_pass.getText());
