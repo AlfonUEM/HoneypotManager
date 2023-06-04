@@ -57,7 +57,7 @@ public class LoginController implements Initializable {
                                                   textfield_bbdd.getText(),
                                                   textfield_usuario.getText(),
                                                   textfield_pass.getText());
-        if(baseDeDatos.conectar()){
+        if(baseDeDatos.connect()){
             if(check_recordar_datos.isSelected()){
                 this.almacenCredenciales.set_ip(textfield_ip.getText());
                 this.almacenCredenciales.set_bbdd(textfield_bbdd.getText());
@@ -67,7 +67,7 @@ public class LoginController implements Initializable {
             }
             App.switchToMainWindow(baseDeDatos);
         }else{
-            this.mostrarErrorConexion(baseDeDatos.getUltimoError());
+            this.mostrarErrorConexion(baseDeDatos.getLastError());
         }
     }
     

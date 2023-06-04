@@ -13,42 +13,42 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Database {
 
-    private Connection conexionMysql = null;
+    private Connection mysqlConnection = null;
     private String IP = null; 
-    private String baseDeDatos = null; 
-    private String usuario = null; 
+    private String database = null; 
+    private String user = null; 
     private String pass = null; 
-    private String ultimo_error = "";
+    private String lastError = "";
     
-    public Database(String IP, String baseDeDatos, String usuario, String pass){
+    public Database(String IP, String database, String user, String pass){
         this.IP = IP;
-        this.baseDeDatos = baseDeDatos;
-        this.usuario = usuario;
+        this.database = database;
+        this.user = user;
         this.pass = pass;
     }
 
 
-    public boolean conectar(){
-        boolean valorRetorno = false;
+    public boolean connect(){
+        boolean returnValue = false;
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.IP +":3306/" + this.baseDeDatos, this.usuario, this.pass);
-            this.conexionMysql = conn;
-            valorRetorno = true;
+            Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.IP +":3306/" + this.database, this.user, this.pass);
+            this.mysqlConnection = conn;
+            returnValue = true;
         } catch (SQLException e) {
-            this.ultimo_error = e.getMessage();
+            this.lastError = e.getMessage();
         }
-        return valorRetorno;
+        return returnValue;
     }
     
-    public String getUltimoError(){
-        return this.ultimo_error;
+    public String getLastError(){
+        return this.lastError;
     }
     
     
     public String getVirusTotalAPIKey(){
         String virusTotalAPIKey = "";
         try {
-            Statement statement = conexionMysql.createStatement();
+            Statement statement = mysqlConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT valor from configuracion where clave = \"VirusTotalAPIKey\"");
             if(resultSet.next()){
                 virusTotalAPIKey = resultSet.getString("valor");
@@ -61,25 +61,25 @@ public class Database {
     }
     
     public boolean setVirusTotalAPIKey(String virusTotalAPIKey){
-        boolean valorRetorno = false;
+        boolean returnValue = false;
         try {
-            PreparedStatement preparedStatement = conexionMysql.prepareStatement("UPDATE configuracion set valor = ? where clave = \"VirusTotalAPIKey\"");
+            PreparedStatement preparedStatement = mysqlConnection.prepareStatement("UPDATE configuracion set valor = ? where clave = \"VirusTotalAPIKey\"");
             preparedStatement.setString(1, virusTotalAPIKey);
             int resultado = preparedStatement.executeUpdate();
             if(resultado == 1){
-                valorRetorno = true;
+                returnValue = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return valorRetorno;
+        return returnValue;
     }
 
     
-    public ArrayList<Sample> getMuestras(){
-        ArrayList<Sample> muestras = new ArrayList();
+    public ArrayList<Sample> getSamples(){
+        ArrayList<Sample> samples = new ArrayList();
         try {
-            Statement statement = conexionMysql.createStatement();
+            Statement statement = mysqlConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT id, nombre_fichero, hash, fecha_llegada, remitente_ip, analizado, malicioso from muestras");
             while(resultSet.next()){
                 Sample muestra = new Sample(resultSet.getInt("id"),
@@ -89,36 +89,36 @@ public class Database {
                                               new SimpleStringProperty(resultSet.getString("fecha_llegada")),
                                               resultSet.getBoolean("analizado"),
                                               resultSet.getBoolean("malicioso"));
-                muestras.add(muestra);     
+                samples.add(muestra);     
             }
             resultSet.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return muestras;
+        return samples;
     }   
 
-    public void desconectar(){
+    public void disconnect(){
         try {
-            this.conexionMysql.close();
+            this.mysqlConnection.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public boolean borrarMuestra(Sample muestra){
-        boolean valorRetorno = false;
+    public boolean deleteSample(Sample muestra){
+        boolean returnValue = false;
         try {
-            PreparedStatement preparedStatement = conexionMysql.prepareStatement("DELETE FROM muestras where id = ?");
+            PreparedStatement preparedStatement = mysqlConnection.prepareStatement("DELETE FROM muestras where id = ?");
             preparedStatement.setInt(1, muestra.getId());
             int resultado = preparedStatement.executeUpdate();
             if(resultado == 1){
-                valorRetorno = true;
+                returnValue = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return valorRetorno;
+        return returnValue;
     }
 }
     

@@ -65,7 +65,7 @@ public class MainController implements Initializable{
     
     @FXML
     private void onClickMenuDesconectar(ActionEvent event) throws IOException {
-        this.baseDeDatos.desconectar();
+        this.baseDeDatos.disconnect();
         Platform.exit();
         
     }
@@ -76,7 +76,7 @@ public class MainController implements Initializable{
     
     public void refrescarTabla(){
         if(this.baseDeDatos != null){
-            tableView.setItems(convertir_muestras(this.baseDeDatos.getMuestras()));
+            tableView.setItems(convertir_muestras(this.baseDeDatos.getSamples()));
         }
     }    
     
@@ -91,7 +91,7 @@ public class MainController implements Initializable{
     @FXML
     private void onClickBorrar(ActionEvent event) {
         Sample muestra = this.tableView.getSelectionModel().getSelectedItem();
-        this.baseDeDatos.borrarMuestra(muestra);
+        this.baseDeDatos.deleteSample(muestra);
         this.refrescarTabla();
     }
     
