@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+
 package com.proyectoinformaticaii.honeypotmanager;
 
 import java.io.IOException;
@@ -24,11 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author alfon
- */
+
 public class MainController implements Initializable{
 
     private BaseDeDatos baseDeDatos = null;
@@ -90,7 +83,6 @@ public class MainController implements Initializable{
     public ObservableList<Muestra> convertir_muestras(ArrayList<Muestra> listaMuestras){
          ObservableList<Muestra> muestras = FXCollections.observableArrayList();
          
-         //muestras.add(new Muestra(1,new SimpleStringProperty("a"),new SimpleStringProperty("b"),true,false));
          muestras.addAll(listaMuestras);
          
          return muestras;
