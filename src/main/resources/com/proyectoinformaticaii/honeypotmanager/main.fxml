@@ -17,8 +17,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Menú">
                   <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onClickMenuConfiguracion" text="Configuración" />
-                    <MenuItem mnemonicParsing="false" onAction="#onClickMenuDesconectar" text="Desconectar" />
+                        <MenuItem mnemonicParsing="false" onAction="#onClickMenuConfiguration" text="Configuración" />
+                    <MenuItem mnemonicParsing="false" onAction="#onClickMenuDisconnect" text="Desconectar" />
                   </items>
                 </Menu>
               </menus>
@@ -27,19 +27,19 @@
          <center>
             <TableView fx:id="tableView">
               <columns>
-                  <TableColumn fx:id="columnaID" prefWidth="44.66666603088379" text="ID" />
-                <TableColumn fx:id="columnaHash" prefWidth="500.0" text="Hash" />
-                <TableColumn fx:id="columnaNombreFichero" prefWidth="200.0" text="Nombre fichero" />
-                  <TableColumn fx:id="columnaFechaDeteccion" prefWidth="150" text="Fecha Detección" />
-                  <TableColumn fx:id="columnaIP" prefWidth="150" text="IP Origen" />
-                  <TableColumn fx:id="columnaAnalizado" prefWidth="100.0" text="Analizado?" />
-                  <TableColumn fx:id="columnaMalicioso" prefWidth="100.0" text="Malicioso?" />
+                  <TableColumn fx:id="columnID" prefWidth="44.66666603088379" text="ID" />
+                <TableColumn fx:id="columnHash" prefWidth="500.0" text="Hash" />
+                <TableColumn fx:id="columnFilename" prefWidth="200.0" text="Nombre fichero" />
+                  <TableColumn fx:id="columnDetectionDate" prefWidth="150" text="Fecha Detección" />
+                  <TableColumn fx:id="columnIP" prefWidth="150" text="IP Origen" />
+                  <TableColumn fx:id="columnAnalized" prefWidth="100.0" text="Analizado?" />
+                  <TableColumn fx:id="columnMalicious" prefWidth="100.0" text="Malicioso?" />
               </columns>
                <contextMenu>
                   <ContextMenu>
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#onClickBorrar" text="Borrar" />
-                      <MenuItem mnemonicParsing="false" onAction="#onClickRefrescar" text="Refrescar" />
+                      <MenuItem mnemonicParsing="false" onAction="#onClickDelete" text="Borrar" />
+                      <MenuItem mnemonicParsing="false" onAction="#onClickRefresh" text="Refrescar" />
                     </items>
                   </ContextMenu>
                </contextMenu>

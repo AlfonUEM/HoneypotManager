@@ -24,38 +24,38 @@ import javafx.stage.Stage;
 
 public class MainController implements Initializable{
 
-    private Database baseDeDatos = null;
+    private Database database = null;
     
     @FXML private TableView<Sample> tableView;
-    @FXML private TableColumn<Sample, Integer> columnaID;
-    @FXML private TableColumn<Sample, SimpleStringProperty> columnaHash;
-    @FXML private TableColumn<Sample, SimpleStringProperty> columnaNombreFichero;
-    @FXML private TableColumn<Sample, SimpleStringProperty> columnaIP;
-    @FXML private TableColumn<Sample, SimpleStringProperty> columnaFechaDeteccion;
-    @FXML private TableColumn<Sample, Boolean> columnaAnalizado;
-    @FXML private TableColumn<Sample, Boolean> columnaMalicioso;
+    @FXML private TableColumn<Sample, Integer> columnID;
+    @FXML private TableColumn<Sample, SimpleStringProperty> columnHash;
+    @FXML private TableColumn<Sample, SimpleStringProperty> columnFilename;
+    @FXML private TableColumn<Sample, SimpleStringProperty> columnIP;
+    @FXML private TableColumn<Sample, SimpleStringProperty> columnDetectionDate;
+    @FXML private TableColumn<Sample, Boolean> columnAnalized;
+    @FXML private TableColumn<Sample, Boolean> columnMalicious;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        columnaID.setCellValueFactory(new PropertyValueFactory<Sample, Integer>("id"));
-        columnaHash.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("hash"));
-        columnaNombreFichero.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("nombre_fichero"));
-        columnaIP.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("remitenteIp"));      
-        columnaFechaDeteccion.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("fechaDeteccion"));
-        columnaAnalizado.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("analizado"));
-        columnaMalicioso.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("malicioso"));
+        columnID.setCellValueFactory(new PropertyValueFactory<Sample, Integer>("id"));
+        columnHash.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("hash"));
+        columnFilename.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("nombre_fichero"));
+        columnIP.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("remitenteIp"));      
+        columnDetectionDate.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("fechaDeteccion"));
+        columnAnalized.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("analizado"));
+        columnMalicious.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("malicioso"));
     }
 
 
     @FXML
-    private void onClickMenuConfiguracion(ActionEvent event) throws IOException {
+    private void onClickMenuConfiguration(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/proyectoinformaticaii/honeypotmanager/configuracion.fxml"));
         Parent root = loader.load();
         root.setStyle("-fx-font: 13 \"Arial\"; ");
-        ConfigurationController configuracionControlador = loader.getController();
-        configuracionControlador.setBaseDeDatos(this.baseDeDatos);
-        configuracionControlador.refrecarDesdeBaseDeDatos();
+        ConfigurationController configurationController = loader.getController();
+        configurationController.setDatabase(this.database);
+        configurationController.refreshFromDatabase();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -64,40 +64,38 @@ public class MainController implements Initializable{
     }
     
     @FXML
-    private void onClickMenuDesconectar(ActionEvent event) throws IOException {
-        this.baseDeDatos.disconnect();
+    private void onClickMenuDisconnect(ActionEvent event) throws IOException {
+        this.database.disconnect();
         Platform.exit();
         
     }
     
-    public void setBaseDeDatos(Database baseDeDatos){
-        this.baseDeDatos = baseDeDatos;
+    public void setDatabase(Database database){
+        this.database = database;
     }
     
-    public void refrescarTabla(){
-        if(this.baseDeDatos != null){
-            tableView.setItems(convertir_muestras(this.baseDeDatos.getSamples()));
+    public void refreshTable(){
+        if(this.database != null){
+            tableView.setItems(convertSamples(this.database.getSamples()));
         }
     }    
     
-    public ObservableList<Sample> convertir_muestras(ArrayList<Sample> listaMuestras){
-         ObservableList<Sample> muestras = FXCollections.observableArrayList();
-         
-         muestras.addAll(listaMuestras);
-         
-         return muestras;
+    public ObservableList<Sample> convertSamples(ArrayList<Sample> samplesList){
+         ObservableList<Sample> samples = FXCollections.observableArrayList();
+         samples.addAll(samplesList);
+         return samples;
     }
 
     @FXML
-    private void onClickBorrar(ActionEvent event) {
+    private void onClickDelete(ActionEvent event) {
         Sample muestra = this.tableView.getSelectionModel().getSelectedItem();
-        this.baseDeDatos.deleteSample(muestra);
-        this.refrescarTabla();
+        this.database.deleteSample(muestra);
+        this.refreshTable();
     }
     
     @FXML
-    private void onClickRefrescar(ActionEvent event) {
-        this.refrescarTabla();
+    private void onClickRefresh(ActionEvent event) {
+        this.refreshTable();
     }
     
 }

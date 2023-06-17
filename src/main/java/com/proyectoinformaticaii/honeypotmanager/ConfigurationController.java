@@ -35,11 +35,11 @@ public class ConfigurationController {
         
     }
    
-    public void setBaseDeDatos(Database baseDeDatos){
-        this.baseDeDatos = baseDeDatos;
+    public void setDatabase(Database database){
+        this.baseDeDatos = database;
     }
     
-    public void refrecarDesdeBaseDeDatos(){
+    public void refreshFromDatabase(){
         if(this.baseDeDatos != null){
             this.virusTotalAPIKey.setText(this.baseDeDatos.getVirusTotalAPIKey());
         }

@@ -40,8 +40,8 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         MainController controller = fxmlLoader.getController();
-        controller.setBaseDeDatos(baseDeDatos);
-        controller.refrescarTabla();
+        controller.setDatabase(baseDeDatos);
+        controller.refreshTable();
         scene.setRoot(root);
         // Ponemos Arial como fuente por defecto para evitar problemas de visualizacion en MacOS
         root = scene.getRoot();
