@@ -15,63 +15,63 @@ import javafx.scene.control.TextField;
 public class LoginController implements Initializable {
 
     @FXML
-    private TextField textfield_ip;
+    private TextField textfieldIp;
     @FXML
-    private TextField textfield_bbdd;
+    private TextField textfieldDatabase;
     @FXML
-    private TextField textfield_usuario;
+    private TextField textfieldUser;
     @FXML
-    private TextField textfield_pass;
+    private TextField textfieldPass;
     @FXML
-    private CheckBox check_recordar_datos;
+    private CheckBox checkRememberData;
 
-    private StoredCredentials almacenCredenciales;
+    private StoredCredentials storedDredentials;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
-        almacenCredenciales = new StoredCredentials();
-        textfield_ip.setText( almacenCredenciales.getIp());
-        textfield_bbdd.setText( almacenCredenciales.getDatabase());
-        textfield_usuario.setText( almacenCredenciales.getUser());
-        textfield_pass.setText( almacenCredenciales.getPass());
+        storedDredentials = new StoredCredentials();
+        textfieldIp.setText( storedDredentials.getIp());
+        textfieldDatabase.setText( storedDredentials.getDatabase());
+        textfieldUser.setText( storedDredentials.getUser());
+        textfieldPass.setText( storedDredentials.getPass());
     }   
 
     @FXML
-    private void onClickOlvidarDatos(ActionEvent event) {
-        textfield_ip.setText( "");
-        textfield_bbdd.setText("");
-        textfield_usuario.setText("");
-        textfield_pass.setText("");   
-        this.almacenCredenciales.setIp("");
-        this.almacenCredenciales.setDatabase("");
-        this.almacenCredenciales.setUser("");
-        this.almacenCredenciales.setPass("");
-        this.almacenCredenciales.writeFile();
+    private void onClickForgetData(ActionEvent event) {
+        textfieldIp.setText( "");
+        textfieldDatabase.setText("");
+        textfieldUser.setText("");
+        textfieldPass.setText("");   
+        this.storedDredentials.setIp("");
+        this.storedDredentials.setDatabase("");
+        this.storedDredentials.setUser("");
+        this.storedDredentials.setPass("");
+        this.storedDredentials.writeFile();
     }
 
     @FXML
-    private void onClickConectar(ActionEvent event) throws IOException {
-        Database baseDeDatos = new Database(textfield_ip.getText(),
-                                                  textfield_bbdd.getText(),
-                                                  textfield_usuario.getText(),
-                                                  textfield_pass.getText());
+    private void onClickConnect(ActionEvent event) throws IOException {
+        Database baseDeDatos = new Database(textfieldIp.getText(),
+                                                  textfieldDatabase.getText(),
+                                                  textfieldUser.getText(),
+                                                  textfieldPass.getText());
         if(baseDeDatos.connect()){
-            if(check_recordar_datos.isSelected()){
-                this.almacenCredenciales.setIp(textfield_ip.getText());
-                this.almacenCredenciales.setDatabase(textfield_bbdd.getText());
-                this.almacenCredenciales.setUser(textfield_usuario.getText());
-                this.almacenCredenciales.setPass(textfield_pass.getText());
-                this.almacenCredenciales.writeFile();
+            if(checkRememberData.isSelected()){
+                this.storedDredentials.setIp(textfieldIp.getText());
+                this.storedDredentials.setDatabase(textfieldDatabase.getText());
+                this.storedDredentials.setUser(textfieldUser.getText());
+                this.storedDredentials.setPass(textfieldPass.getText());
+                this.storedDredentials.writeFile();
             }
             App.switchToMainWindow(baseDeDatos);
         }else{
-            this.mostrarErrorConexion(baseDeDatos.getLastError());
+            this.showConnectionError(baseDeDatos.getLastError());
         }
     }
     
-    private void mostrarErrorConexion(String razon){
+    private void showConnectionError(String razon){
         Alert alert = new Alert(AlertType.ERROR);
         alert.getDialogPane().setStyle("-fx-font: 13 \"Arial\"; ");
         alert.setTitle("Error de conexión");
