@@ -40,11 +40,11 @@ public class MainController implements Initializable{
     public void initialize(URL url, ResourceBundle rb){
         columnID.setCellValueFactory(new PropertyValueFactory<Sample, Integer>("id"));
         columnHash.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("hash"));
-        columnFilename.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("nombre_fichero"));
-        columnIP.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("remitenteIp"));      
-        columnDetectionDate.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("fechaDeteccion"));
-        columnAnalized.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("analizado"));
-        columnMalicious.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("malicioso"));
+        columnFilename.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("filename"));
+        columnIP.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("srcIp"));      
+        columnDetectionDate.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("detectionDate"));
+        columnAnalized.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("analyzed"));
+        columnMalicious.setCellValueFactory(new PropertyValueFactory<Sample, Boolean>("malicious"));
     }
 
 

@@ -10,8 +10,8 @@ public class Sample {
     private SimpleStringProperty hash;
     private SimpleStringProperty srcIP;
     private SimpleStringProperty detectionDate;
-    private boolean isAnalized;
-    private boolean isMalicious;
+    private boolean analized;
+    private boolean malicious;
     
     
     public Sample(int id, SimpleStringProperty filename, SimpleStringProperty hash, SimpleStringProperty srcIp, SimpleStringProperty detectionDate, boolean analized, boolean malicious){
@@ -20,8 +20,8 @@ public class Sample {
         this.hash = hash;
         this.srcIP = srcIp;
         this.detectionDate = detectionDate;
-        this.isAnalized = analized;
-        this.isMalicious = malicious;
+        this.analized = analized;
+        this.malicious = malicious;
     }
 
     public int getId() {
@@ -64,20 +64,20 @@ public class Sample {
         this.detectionDate = detectionDate;
     }
 
-    public boolean isAnalyzed() {
-        return isAnalized;
+    public boolean getAnalyzed() {
+        return analized;
     }
 
     public void setAnalized(boolean analized) {
-        this.isAnalized = analized;
+        this.analized = analized;
     }
 
-    public boolean isMalicious() {
-        return isMalicious;
+    public boolean getMalicious() {
+        return malicious;
     }
 
     public void setMalicious(boolean malicious) {
-        this.isMalicious = malicious;
+        this.malicious = malicious;
     }
     
 
