@@ -32,10 +32,10 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
         almacenCredenciales = new StoredCredentials();
-        textfield_ip.setText( almacenCredenciales.get_ip());
-        textfield_bbdd.setText( almacenCredenciales.get_bbdd());
-        textfield_usuario.setText( almacenCredenciales.get_usuario());
-        textfield_pass.setText( almacenCredenciales.get_pass());
+        textfield_ip.setText( almacenCredenciales.getIp());
+        textfield_bbdd.setText( almacenCredenciales.getDatabase());
+        textfield_usuario.setText( almacenCredenciales.getUser());
+        textfield_pass.setText( almacenCredenciales.getPass());
     }   
 
     @FXML
@@ -44,11 +44,11 @@ public class LoginController implements Initializable {
         textfield_bbdd.setText("");
         textfield_usuario.setText("");
         textfield_pass.setText("");   
-        this.almacenCredenciales.set_ip("");
-        this.almacenCredenciales.set_bbdd("");
-        this.almacenCredenciales.set_usuario("");
-        this.almacenCredenciales.set_pass("");
-        this.almacenCredenciales.escribir_fichero();
+        this.almacenCredenciales.setIp("");
+        this.almacenCredenciales.setDatabase("");
+        this.almacenCredenciales.setUser("");
+        this.almacenCredenciales.setPass("");
+        this.almacenCredenciales.writeFile();
     }
 
     @FXML
@@ -59,11 +59,11 @@ public class LoginController implements Initializable {
                                                   textfield_pass.getText());
         if(baseDeDatos.connect()){
             if(check_recordar_datos.isSelected()){
-                this.almacenCredenciales.set_ip(textfield_ip.getText());
-                this.almacenCredenciales.set_bbdd(textfield_bbdd.getText());
-                this.almacenCredenciales.set_usuario(textfield_usuario.getText());
-                this.almacenCredenciales.set_pass(textfield_pass.getText());
-                this.almacenCredenciales.escribir_fichero();
+                this.almacenCredenciales.setIp(textfield_ip.getText());
+                this.almacenCredenciales.setDatabase(textfield_bbdd.getText());
+                this.almacenCredenciales.setUser(textfield_usuario.getText());
+                this.almacenCredenciales.setPass(textfield_pass.getText());
+                this.almacenCredenciales.writeFile();
             }
             App.switchToMainWindow(baseDeDatos);
         }else{

@@ -10,27 +10,27 @@ import java.io.PrintWriter;
 
 public class StoredCredentials {
     private String ip = ""; 
-    private String bbdd = "";
-    private String usuario = "";
+    private String database = "";
+    private String user = "";
     private String pass = "";
-    private String ruta_fichero = "honeypot_almacen_credenciales";
+    private String filePath = "honeypot_almacen_credenciales";
     
     public StoredCredentials(){
-        this.leer_de_fichero();
+        this.readFromFile();
     }
     
-    public boolean leer_de_fichero(){
-        boolean valor_retorno = false;
+    public boolean readFromFile(){
+        boolean returnValue = false;
         FileReader fileReader = null;
         BufferedReader bufferReader;
         try {
-            fileReader = new FileReader (new File (this.ruta_fichero));
+            fileReader = new FileReader (new File (this.filePath));
             bufferReader = new BufferedReader(fileReader);
             this.ip = bufferReader.readLine();
-            this.bbdd = bufferReader.readLine();
-            this.usuario = bufferReader.readLine();
+            this.database = bufferReader.readLine();
+            this.user = bufferReader.readLine();
             this.pass = bufferReader.readLine();
-            valor_retorno = true;
+            returnValue = true;
         }
         catch(IOException exceptionRead){
             exceptionRead.printStackTrace();
@@ -44,54 +44,54 @@ public class StoredCredentials {
                 exceptionClose.printStackTrace();
             }
         }
-        return valor_retorno;
+        return returnValue;
     }
     
-    public String get_ip(){
+    public String getIp(){
         return this.ip;
     }
     
-    public String get_bbdd(){
-        return this.bbdd;
+    public String getDatabase(){
+        return this.database;
     }    
     
-    public String get_usuario(){
-        return this.usuario;
+    public String getUser(){
+        return this.user;
     }
     
-    public String get_pass(){
+    public String getPass(){
         return this.pass;
     }
     
-    public void set_ip(String ip){
+    public void setIp(String ip){
         this.ip = ip;
     }
     
-    public void set_bbdd(String bbdd){
-        this.bbdd = bbdd;
+    public void setDatabase(String database){
+        this.database = database;
     }    
     
-    public void set_usuario(String usuario){
-        this.usuario = usuario;
+    public void setUser(String user){
+        this.user = user;
     }
     
-    public void set_pass(String pass){
+    public void setPass(String pass){
         this.pass = pass;
     }    
     
-    public boolean escribir_fichero(){
-        boolean valor_retorno = false;
+    public boolean writeFile(){
+        boolean returnValue = false;
         FileWriter fileWriter = null;
         PrintWriter printWriter = null;
         try
         {
-            fileWriter = new FileWriter(this.ruta_fichero);
+            fileWriter = new FileWriter(this.filePath);
             printWriter = new PrintWriter(fileWriter);
             printWriter.println(this.ip);
-            printWriter.println(this.bbdd);
-            printWriter.println(this.usuario);
+            printWriter.println(this.database);
+            printWriter.println(this.user);
             printWriter.println(this.pass);
-            valor_retorno = true;
+            returnValue = true;
 
         } catch (IOException exceptionWrite) {
             exceptionWrite.printStackTrace();
@@ -105,7 +105,7 @@ public class StoredCredentials {
               exceptionClose.printStackTrace();
            }
         }
-        return valor_retorno;
+        return returnValue;
     }
 
 }
