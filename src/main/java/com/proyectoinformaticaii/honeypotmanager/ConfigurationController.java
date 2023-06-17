@@ -16,7 +16,7 @@ public class ConfigurationController {
     @FXML
     private TextField virusTotalAPIKey;
 
-    private Database baseDeDatos = null;
+    private Database database = null;
 
 
     @FXML
@@ -27,8 +27,8 @@ public class ConfigurationController {
 
     @FXML
     private void onActionConfigurationSave(ActionEvent event) {
-        if(this.baseDeDatos != null){
-            this.baseDeDatos.setVirusTotalAPIKey(this.virusTotalAPIKey.getText());
+        if(this.database != null){
+            this.database.setVirusTotalAPIKey(this.virusTotalAPIKey.getText());
         }
         Stage stage = (Stage) saveConfigurationButton.getScene().getWindow();
         stage.close();        
@@ -36,12 +36,12 @@ public class ConfigurationController {
     }
    
     public void setDatabase(Database database){
-        this.baseDeDatos = database;
+        this.database = database;
     }
     
     public void refreshFromDatabase(){
-        if(this.baseDeDatos != null){
-            this.virusTotalAPIKey.setText(this.baseDeDatos.getVirusTotalAPIKey());
+        if(this.database != null){
+            this.virusTotalAPIKey.setText(this.database.getVirusTotalAPIKey());
         }
     }
 }
