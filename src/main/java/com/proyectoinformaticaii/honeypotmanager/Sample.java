@@ -6,22 +6,22 @@ import javafx.beans.property.SimpleStringProperty;
 public class Sample {
     
     private int id;
-    private SimpleStringProperty nombre_fichero;
+    private SimpleStringProperty filename;
     private SimpleStringProperty hash;
-    private SimpleStringProperty remitenteIp;
-    private SimpleStringProperty fechaDeteccion;
-    private boolean analizado;
-    private boolean malicioso;
+    private SimpleStringProperty srcIP;
+    private SimpleStringProperty detectionDate;
+    private boolean isAnalized;
+    private boolean isMalicious;
     
     
-    public Sample(int id, SimpleStringProperty nombre_fichero, SimpleStringProperty hash, SimpleStringProperty remitenteIp, SimpleStringProperty fechaDeteccion, boolean analizado, boolean malicioso){
+    public Sample(int id, SimpleStringProperty filename, SimpleStringProperty hash, SimpleStringProperty srcIp, SimpleStringProperty detectionDate, boolean analized, boolean malicious){
         this.id = id;
-        this.nombre_fichero = nombre_fichero;
+        this.filename = filename;
         this.hash = hash;
-        this.remitenteIp = remitenteIp;
-        this.fechaDeteccion = fechaDeteccion;
-        this.analizado = analizado;
-        this.malicioso = malicioso;
+        this.srcIP = srcIp;
+        this.detectionDate = detectionDate;
+        this.isAnalized = analized;
+        this.isMalicious = malicious;
     }
 
     public int getId() {
@@ -32,12 +32,12 @@ public class Sample {
         this.id = id;
     }
 
-    public String getNombre_fichero() {
-        return nombre_fichero.get();
+    public String getFilename() {
+        return filename.get();
     }
 
-    public void setNombre_fichero(SimpleStringProperty nombre_fichero) {
-        this.nombre_fichero = nombre_fichero;
+    public void setFilename(SimpleStringProperty filename) {
+        this.filename = filename;
     }
 
     public String getHash() {
@@ -48,36 +48,36 @@ public class Sample {
         this.hash = hash;
     }
     
-    public String getRemitenteIp(){
-        return remitenteIp.get();
+    public String getSrcIp(){
+        return srcIP.get();
     }
     
-    public void setRemitenteIp(SimpleStringProperty remitenteIp){
-        this.remitenteIp = remitenteIp;
+    public void setSrcIp(SimpleStringProperty srcIp){
+        this.srcIP = srcIp;
     }
     
-    public String getFechaDeteccion(){
-        return fechaDeteccion.get();
+    public String getDetectionDate(){
+        return detectionDate.get();
     }
     
-    public void setFechaDeteccion(SimpleStringProperty fechaDeteccion){
-        this.fechaDeteccion = fechaDeteccion;
+    public void setDetectionDate(SimpleStringProperty detectionDate){
+        this.detectionDate = detectionDate;
     }
 
-    public boolean isAnalizado() {
-        return analizado;
+    public boolean isAnalyzed() {
+        return isAnalized;
     }
 
-    public void setAnalizado(boolean analizado) {
-        this.analizado = analizado;
+    public void setAnalized(boolean analized) {
+        this.isAnalized = analized;
     }
 
-    public boolean isMalicioso() {
-        return malicioso;
+    public boolean isMalicious() {
+        return isMalicious;
     }
 
-    public void setMalicioso(boolean malicioso) {
-        this.malicioso = malicioso;
+    public void setMalicious(boolean malicious) {
+        this.isMalicious = malicious;
     }
     
 
