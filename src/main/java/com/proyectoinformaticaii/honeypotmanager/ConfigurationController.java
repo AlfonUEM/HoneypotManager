@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 public class ConfigurationController {
 
     @FXML
-    private Button botonConfiguracionCancelar;
+    private Button cancelConfigurationButton;
     @FXML
-    private Button botonConfiguracionGuardar;    
+    private Button saveConfigurationButton;    
     @FXML
     private TextField virusTotalAPIKey;
 
@@ -20,17 +20,17 @@ public class ConfigurationController {
 
 
     @FXML
-    private void onActionConfiguracionCancelar(ActionEvent event) {
-        Stage stage = (Stage) botonConfiguracionCancelar.getScene().getWindow();
+    private void onActionConfigurationCancel(ActionEvent event) {
+        Stage stage = (Stage) cancelConfigurationButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    private void onActionConfiguracionGuardar(ActionEvent event) {
+    private void onActionConfigurationSave(ActionEvent event) {
         if(this.baseDeDatos != null){
             this.baseDeDatos.setVirusTotalAPIKey(this.virusTotalAPIKey.getText());
         }
-        Stage stage = (Stage) botonConfiguracionGuardar.getScene().getWindow();
+        Stage stage = (Stage) saveConfigurationButton.getScene().getWindow();
         stage.close();        
         
     }
