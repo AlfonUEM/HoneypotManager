@@ -20,7 +20,7 @@ public class Database {
   private String pass = null; 
   private String lastError = "";
   
-  public Database(String IP, String database, String user, String pass){
+  public Database(String IP, String database, String user, String pass) {
     this.IP = IP;
     this.database = database;
     this.user = user;
@@ -28,10 +28,10 @@ public class Database {
   }
 
 
-  public boolean connect(){
+  public boolean connect() {
     boolean returnValue = false;
     try {
-      Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.IP +":3306/" + this.database, this.user, this.pass);
+      Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.IP + ":3306/" + this.database, this.user, this.pass);
       this.mysqlConnection = conn;
       returnValue = true;
     } catch (SQLException e) {
@@ -40,17 +40,17 @@ public class Database {
     return returnValue;
   }
   
-  public String getLastError(){
+  public String getLastError() {
     return this.lastError;
   }
   
   
-  public String getVirusTotalAPIKey(){
+  public String getVirusTotalAPIKey() {
     String virusTotalAPIKey = "";
     try {
       Statement statement = mysqlConnection.createStatement();
       ResultSet resultSet = statement.executeQuery("SELECT valor from configuracion where clave = \"VirusTotalAPIKey\"");
-      if(resultSet.next()){
+      if (resultSet.next()) {
         virusTotalAPIKey = resultSet.getString("valor");
       }
       resultSet.close();
@@ -60,13 +60,13 @@ public class Database {
     return virusTotalAPIKey;
   }
   
-  public boolean setVirusTotalAPIKey(String virusTotalAPIKey){
+  public boolean setVirusTotalAPIKey(String virusTotalAPIKey) {
     boolean returnValue = false;
     try {
       PreparedStatement preparedStatement = mysqlConnection.prepareStatement("UPDATE configuracion set valor = ? where clave = \"VirusTotalAPIKey\"");
       preparedStatement.setString(1, virusTotalAPIKey);
       int resultado = preparedStatement.executeUpdate();
-      if(resultado == 1){
+      if (resultado == 1) {
         returnValue = true;
       }
     } catch (SQLException ex) {
@@ -76,12 +76,12 @@ public class Database {
   }
 
   
-  public ArrayList<Sample> getSamples(){
+  public ArrayList<Sample> getSamples() {
     ArrayList<Sample> samples = new ArrayList();
     try {
       Statement statement = mysqlConnection.createStatement();
       ResultSet resultSet = statement.executeQuery("SELECT id, nombre_fichero, hash, fecha_llegada, remitente_ip, analizado, malicioso from muestras");
-      while(resultSet.next()){
+      while (resultSet.next()) {
         Sample muestra = new Sample(resultSet.getInt("id"),
                                     new SimpleStringProperty(resultSet.getString("nombre_fichero")),
                                     new SimpleStringProperty(resultSet.getString("hash")),
@@ -98,7 +98,7 @@ public class Database {
     return samples;
   }   
 
-  public void disconnect(){
+  public void disconnect() {
     try {
       this.mysqlConnection.close();
     } catch (SQLException ex) {
@@ -106,13 +106,13 @@ public class Database {
     }
   }
   
-  public boolean deleteSample(Sample muestra){
+  public boolean deleteSample(Sample muestra) {
     boolean returnValue = false;
     try {
       PreparedStatement preparedStatement = mysqlConnection.prepareStatement("DELETE FROM muestras where id = ?");
       preparedStatement.setInt(1, muestra.getId());
       int resultado = preparedStatement.executeUpdate();
-      if(resultado == 1){
+      if (resultado == 1) {
         returnValue = true;
       }
     } catch (SQLException ex) {

@@ -27,19 +27,19 @@ public class ConfigurationController {
 
   @FXML
   private void onActionConfigurationSave(ActionEvent event) {
-    if(this.database != null){
+    if (this.database != null) {
       this.database.setVirusTotalAPIKey(this.virusTotalAPIKey.getText());
     }
     Stage stage = (Stage) saveConfigurationButton.getScene().getWindow();
     stage.close();        
   }
  
-  public void setDatabase(Database database){
+  public void setDatabase(Database database) {
     this.database = database;
   }
   
-  public void refreshFromDatabase(){
-    if(this.database != null){
+  public void refreshFromDatabase() {
+    if (this.database != null) {
       this.virusTotalAPIKey.setText(this.database.getVirusTotalAPIKey());
     }
   }

@@ -22,7 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public class MainController implements Initializable{
+public class MainController implements Initializable {
 
   private Database database = null;
   
@@ -37,7 +37,7 @@ public class MainController implements Initializable{
   
   
   @Override
-  public void initialize(URL url, ResourceBundle rb){
+  public void initialize(URL url, ResourceBundle rb) {
     columnID.setCellValueFactory(new PropertyValueFactory<Sample, Integer>("id"));
     columnHash.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("hash"));
     columnFilename.setCellValueFactory(new PropertyValueFactory<Sample, SimpleStringProperty>("filename"));
@@ -70,17 +70,17 @@ public class MainController implements Initializable{
       
   }
   
-  public void setDatabase(Database database){
+  public void setDatabase(Database database) {
     this.database = database;
   }
   
-  public void refreshTable(){
-    if(this.database != null){
+  public void refreshTable() {
+    if (this.database != null) {
       tableView.setItems(convertSamples(this.database.getSamples()));
     }
   }    
   
-  public ObservableList<Sample> convertSamples(ArrayList<Sample> samplesList){
+  public ObservableList<Sample> convertSamples(ArrayList<Sample> samplesList) {
     ObservableList<Sample> samples = FXCollections.observableArrayList();
     samples.addAll(samplesList);
     return samples;

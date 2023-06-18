@@ -57,8 +57,8 @@ public class LoginController implements Initializable {
                                         textfieldDatabase.getText(),
                                         textfieldUser.getText(),
                                         textfieldPass.getText());
-    if(baseDeDatos.connect()){
-      if(checkRememberData.isSelected()){
+    if (baseDeDatos.connect()) {
+      if (checkRememberData.isSelected()) {
         this.storedDredentials.setIp(textfieldIp.getText());
         this.storedDredentials.setDatabase(textfieldDatabase.getText());
         this.storedDredentials.setUser(textfieldUser.getText());
@@ -66,12 +66,12 @@ public class LoginController implements Initializable {
         this.storedDredentials.writeFile();
       }
       App.switchToMainWindow(baseDeDatos);
-    }else{
+    } else {
       this.showConnectionError(baseDeDatos.getLastError());
     }
   }
   
-  private void showConnectionError(String razon){
+  private void showConnectionError(String razon) {
     Alert alert = new Alert(AlertType.ERROR);
     alert.getDialogPane().setStyle("-fx-font: 13 \"Arial\"; ");
     alert.setTitle("Error de conexión");

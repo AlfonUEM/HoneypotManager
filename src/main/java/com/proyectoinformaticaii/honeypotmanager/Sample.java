@@ -14,7 +14,7 @@ public class Sample {
   private boolean malicious;
   
   
-  public Sample(int id, SimpleStringProperty filename, SimpleStringProperty hash, SimpleStringProperty srcIp, SimpleStringProperty detectionDate, boolean analized, boolean malicious){
+  public Sample(int id, SimpleStringProperty filename, SimpleStringProperty hash, SimpleStringProperty srcIp, SimpleStringProperty detectionDate, boolean analized, boolean malicious) {
     this.id = id;
     this.filename = filename;
     this.hash = hash;
@@ -48,19 +48,19 @@ public class Sample {
     this.hash = hash;
   }
   
-  public String getSrcIp(){
+  public String getSrcIp() {
     return srcIP.get();
   }
   
-  public void setSrcIp(SimpleStringProperty srcIp){
+  public void setSrcIp(SimpleStringProperty srcIp) {
     this.srcIP = srcIp;
   }
   
-  public String getDetectionDate(){
+  public String getDetectionDate() {
     return detectionDate.get();
   }
   
-  public void setDetectionDate(SimpleStringProperty detectionDate){
+  public void setDetectionDate(SimpleStringProperty detectionDate) {
     this.detectionDate = detectionDate;
   }
 

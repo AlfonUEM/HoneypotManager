@@ -15,11 +15,11 @@ public class StoredCredentials {
   private String pass = "";
   private String filePath = "honeypot_almacen_credenciales";
   
-  public StoredCredentials(){
+  public StoredCredentials() {
     this.readFromFile();
   }
   
-  public boolean readFromFile(){
+  public boolean readFromFile() {
     boolean returnValue = false;
     FileReader fileReader = null;
     BufferedReader bufferReader;
@@ -32,58 +32,58 @@ public class StoredCredentials {
       this.pass = bufferReader.readLine();
       returnValue = true;
     }
-    catch(IOException exceptionRead){
+    catch (IOException exceptionRead) {
       exceptionRead.printStackTrace();
     }
-    finally{
-      try{
-        if(fileReader != null){
+    finally {
+      try {
+        if (fileReader != null) {
           fileReader.close();
         }
-      }catch (IOException exceptionClose){
+      } catch (IOException exceptionClose) {
         exceptionClose.printStackTrace();
       }
     }
     return returnValue;
   }
   
-  public String getIp(){
+  public String getIp() {
     return this.ip;
   }
   
-  public String getDatabase(){
+  public String getDatabase() {
     return this.database;
   }    
   
-  public String getUser(){
+  public String getUser() {
     return this.user;
   }
   
-  public String getPass(){
+  public String getPass() {
     return this.pass;
   }
   
-  public void setIp(String ip){
+  public void setIp(String ip) {
     this.ip = ip;
   }
   
-  public void setDatabase(String database){
+  public void setDatabase(String database) {
     this.database = database;
   }    
   
-  public void setUser(String user){
+  public void setUser(String user) {
     this.user = user;
   }
   
-  public void setPass(String pass){
+  public void setPass(String pass) {
     this.pass = pass;
   }    
   
-  public boolean writeFile(){
+  public boolean writeFile() {
     boolean returnValue = false;
     FileWriter fileWriter = null;
     PrintWriter printWriter = null;
-    try{
+    try {
       fileWriter = new FileWriter(this.filePath);
       printWriter = new PrintWriter(fileWriter);
       printWriter.println(this.ip);
@@ -96,7 +96,7 @@ public class StoredCredentials {
       exceptionWrite.printStackTrace();
     } finally {
       try {
-        if (fileWriter != null){
+        if (fileWriter != null) {
           fileWriter.close();
         }
       } catch (IOException exceptionClose) {
