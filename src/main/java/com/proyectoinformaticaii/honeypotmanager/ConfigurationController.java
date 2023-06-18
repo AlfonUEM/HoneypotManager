@@ -1,5 +1,7 @@
 package com.proyectoinformaticaii.honeypotmanager;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,12 +23,16 @@ public class ConfigurationController {
 
   @FXML
   private void onActionConfigurationCancel(ActionEvent event) {
+    Logger.getLogger(ConfigurationController.class.getName()).log(Level.INFO, 
+            "click onActionConfigurationCancel");
     Stage stage = (Stage) cancelConfigurationButton.getScene().getWindow();
     stage.close();
   }
 
   @FXML
   private void onActionConfigurationSave(ActionEvent event) {
+    Logger.getLogger(ConfigurationController.class.getName()).log(Level.INFO, 
+            "click onActionConfigurationSave");    
     if (this.database != null) {
       this.database.setVirusTotalAPIKey(this.virusTotalAPIKey.getText());
     }

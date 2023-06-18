@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -57,6 +59,8 @@ public class MainController implements Initializable {
 
   @FXML
   private void onClickMenuConfiguration(ActionEvent event) throws IOException {
+    Logger.getLogger(MainController.class.getName()).log(Level.INFO, 
+            "click onClickMenuConfiguration");        
     FXMLLoader loader = new FXMLLoader(getClass().getResource(
             "/com/proyectoinformaticaii/honeypotmanager/configuracion.fxml"));
     Parent root = loader.load();
@@ -73,6 +77,8 @@ public class MainController implements Initializable {
   
   @FXML
   private void onClickMenuDisconnect(ActionEvent event) throws IOException {
+    Logger.getLogger(MainController.class.getName()).log(Level.INFO, 
+            "click onClickMenuDisconnect");    
     this.database.disconnect();
     Platform.exit();
       
@@ -96,6 +102,7 @@ public class MainController implements Initializable {
 
   @FXML
   private void onClickDelete(ActionEvent event) {
+    Logger.getLogger(MainController.class.getName()).log(Level.INFO, "click onClickDelete");        
     Sample muestra = this.tableView.getSelectionModel().getSelectedItem();
     this.database.deleteSample(muestra);
     this.refreshTable();
@@ -103,6 +110,7 @@ public class MainController implements Initializable {
   
   @FXML
   private void onClickRefresh(ActionEvent event) {
+    Logger.getLogger(MainController.class.getName()).log(Level.INFO, "click onClickRefresh");
     this.refreshTable();
   }
   

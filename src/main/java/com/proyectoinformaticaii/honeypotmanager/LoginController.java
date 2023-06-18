@@ -3,6 +3,8 @@ package com.proyectoinformaticaii.honeypotmanager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,6 +40,8 @@ public class LoginController implements Initializable {
 
   @FXML
   private void onClickForgetData(ActionEvent event) {
+    Logger.getLogger(LoginController.class.getName()).log(Level.INFO, 
+            "click onClickForgetData");    
     textfieldIp.setText("");
     textfieldDatabase.setText("");
     textfieldUser.setText("");
@@ -51,6 +55,8 @@ public class LoginController implements Initializable {
 
   @FXML
   private void onClickConnect(ActionEvent event) throws IOException {
+    Logger.getLogger(LoginController.class.getName()).log(Level.INFO, 
+            "click onClickConnect");        
     Database baseDeDatos = new Database(textfieldIp.getText(),
                                         textfieldDatabase.getText(),
                                         textfieldUser.getText(),

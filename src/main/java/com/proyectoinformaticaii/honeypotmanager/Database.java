@@ -19,12 +19,14 @@ public class Database {
   private String user = null; 
   private String pass = null; 
   private String lastError = "";
+  private Logger logger = null;
   
   public Database(String srcIP, String database, String user, String pass) {
     this.srcIP = srcIP;
     this.database = database;
     this.user = user;
     this.pass = pass;
+    this.logger = Logger.getLogger(Database.class.getName());
   }
 
 
@@ -34,6 +36,7 @@ public class Database {
       Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.srcIP + ":3306/" 
                                                     + this.database, this.user, this.pass);
       this.mysqlConnection = conn;
+      this.logger.log(Level.INFO, "Conectado a la BBDD");
       returnValue = true;
     } catch (SQLException e) {
       this.lastError = e.getMessage();
@@ -52,12 +55,13 @@ public class Database {
       Statement statement = mysqlConnection.createStatement();
       ResultSet resultSet = statement.executeQuery(
               "SELECT valor from configuracion where clave = \"VirusTotalAPIKey\"");
+      this.logger.log(Level.INFO, "virusTotalAPIKey obtenida");
       if (resultSet.next()) {
         virusTotalAPIKey = resultSet.getString("valor");
       }
       resultSet.close();
     } catch (SQLException ex) {
-      Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+      this.logger.log(Level.SEVERE, null, ex);
     }
     return virusTotalAPIKey;
   }
@@ -70,10 +74,11 @@ public class Database {
       preparedStatement.setString(1, virusTotalAPIKey);
       int resultado = preparedStatement.executeUpdate();
       if (resultado == 1) {
+        this.logger.log(Level.INFO, "virusTotalAPIKey actualizada");
         returnValue = true;
       }
     } catch (SQLException ex) {
-      Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+      this.logger.log(Level.SEVERE, null, ex);
     }
     return returnValue;
   }
@@ -86,6 +91,7 @@ public class Database {
       ResultSet resultSet = statement.executeQuery(
               "SELECT id, nombre_fichero, hash, fecha_llegada, remitente_ip, analizado,"
                       + " malicioso from muestras");
+      this.logger.log(Level.INFO, "Datos de ficheros adjuntos obtenidos");
       while (resultSet.next()) {
         Sample muestra = new Sample(resultSet.getInt("id"),
                                     new SimpleStringProperty(resultSet.getString("nombre_fichero")),
@@ -98,7 +104,7 @@ public class Database {
       }
       resultSet.close();
     } catch (SQLException ex) {
-      Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+      this.logger.log(Level.SEVERE, null, ex);
     }
     return samples;
   }   
@@ -106,8 +112,9 @@ public class Database {
   public void disconnect() {
     try {
       this.mysqlConnection.close();
+      this.logger.log(Level.INFO, "Desconectado de la BBDD");
     } catch (SQLException ex) {
-      Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+      this.logger.log(Level.SEVERE, null, ex);
     }
   }
   
@@ -119,10 +126,11 @@ public class Database {
       preparedStatement.setInt(1, muestra.getId());
       int resultado = preparedStatement.executeUpdate();
       if (resultado == 1) {
+        this.logger.log(Level.INFO, "Fichero adjunto borrado de la base de datos");
         returnValue = true;
       }
     } catch (SQLException ex) {
-      Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+      this.logger.log(Level.SEVERE, null, ex);
     }
     return returnValue;
   }
