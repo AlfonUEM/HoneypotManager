@@ -14,14 +14,14 @@ import javafx.beans.property.SimpleStringProperty;
 public class Database {
 
   private Connection mysqlConnection = null;
-  private String IP = null; 
+  private String srcIP = null; 
   private String database = null; 
   private String user = null; 
   private String pass = null; 
   private String lastError = "";
   
-  public Database(String IP, String database, String user, String pass) {
-    this.IP = IP;
+  public Database(String srcIP, String database, String user, String pass) {
+    this.srcIP = srcIP;
     this.database = database;
     this.user = user;
     this.pass = pass;
@@ -31,7 +31,8 @@ public class Database {
   public boolean connect() {
     boolean returnValue = false;
     try {
-      Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.IP + ":3306/" + this.database, this.user, this.pass);
+      Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.srcIP + ":3306/" 
+                                                    + this.database, this.user, this.pass);
       this.mysqlConnection = conn;
       returnValue = true;
     } catch (SQLException e) {
@@ -49,7 +50,8 @@ public class Database {
     String virusTotalAPIKey = "";
     try {
       Statement statement = mysqlConnection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT valor from configuracion where clave = \"VirusTotalAPIKey\"");
+      ResultSet resultSet = statement.executeQuery(
+              "SELECT valor from configuracion where clave = \"VirusTotalAPIKey\"");
       if (resultSet.next()) {
         virusTotalAPIKey = resultSet.getString("valor");
       }
@@ -63,7 +65,8 @@ public class Database {
   public boolean setVirusTotalAPIKey(String virusTotalAPIKey) {
     boolean returnValue = false;
     try {
-      PreparedStatement preparedStatement = mysqlConnection.prepareStatement("UPDATE configuracion set valor = ? where clave = \"VirusTotalAPIKey\"");
+      PreparedStatement preparedStatement = mysqlConnection.prepareStatement(
+              "UPDATE configuracion set valor = ? where clave = \"VirusTotalAPIKey\"");
       preparedStatement.setString(1, virusTotalAPIKey);
       int resultado = preparedStatement.executeUpdate();
       if (resultado == 1) {
@@ -80,7 +83,9 @@ public class Database {
     ArrayList<Sample> samples = new ArrayList();
     try {
       Statement statement = mysqlConnection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT id, nombre_fichero, hash, fecha_llegada, remitente_ip, analizado, malicioso from muestras");
+      ResultSet resultSet = statement.executeQuery(
+              "SELECT id, nombre_fichero, hash, fecha_llegada, remitente_ip, analizado,"
+                      + " malicioso from muestras");
       while (resultSet.next()) {
         Sample muestra = new Sample(resultSet.getInt("id"),
                                     new SimpleStringProperty(resultSet.getString("nombre_fichero")),
@@ -109,7 +114,8 @@ public class Database {
   public boolean deleteSample(Sample muestra) {
     boolean returnValue = false;
     try {
-      PreparedStatement preparedStatement = mysqlConnection.prepareStatement("DELETE FROM muestras where id = ?");
+      PreparedStatement preparedStatement = mysqlConnection.prepareStatement(
+                                                              "DELETE FROM muestras where id = ?");
       preparedStatement.setInt(1, muestra.getId());
       int resultado = preparedStatement.executeUpdate();
       if (resultado == 1) {

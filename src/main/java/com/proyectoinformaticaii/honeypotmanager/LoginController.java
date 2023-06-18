@@ -26,21 +26,19 @@ public class LoginController implements Initializable {
   private CheckBox checkRememberData;
 
   private StoredCredentials storedDredentials;
-  /**
-   * Initializes the controller class.
-   */
+
   @Override
   public void initialize(URL url, ResourceBundle rb) {    
     storedDredentials = new StoredCredentials();
-    textfieldIp.setText( storedDredentials.getIp());
-    textfieldDatabase.setText( storedDredentials.getDatabase());
-    textfieldUser.setText( storedDredentials.getUser());
-    textfieldPass.setText( storedDredentials.getPass());
+    textfieldIp.setText(storedDredentials.getIp());
+    textfieldDatabase.setText(storedDredentials.getDatabase());
+    textfieldUser.setText(storedDredentials.getUser());
+    textfieldPass.setText(storedDredentials.getPass());
   }   
 
   @FXML
   private void onClickForgetData(ActionEvent event) {
-    textfieldIp.setText( "");
+    textfieldIp.setText("");
     textfieldDatabase.setText("");
     textfieldUser.setText("");
     textfieldPass.setText("");   
@@ -76,7 +74,7 @@ public class LoginController implements Initializable {
     alert.getDialogPane().setStyle("-fx-font: 13 \"Arial\"; ");
     alert.setTitle("Error de conexión");
     alert.setHeaderText(null);
-    alert.setContentText("Ha sido imposible conectarse a la base de datos. Mensaje de error:\n" + razon);
+    alert.setContentText("Ha sido imposible conectarse a la base de datos. Error:\n" + razon);
     alert.showAndWait();
   }
 }

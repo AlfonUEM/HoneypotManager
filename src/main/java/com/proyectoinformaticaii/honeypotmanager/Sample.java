@@ -14,7 +14,9 @@ public class Sample {
   private boolean malicious;
   
   
-  public Sample(int id, SimpleStringProperty filename, SimpleStringProperty hash, SimpleStringProperty srcIp, SimpleStringProperty detectionDate, boolean analized, boolean malicious) {
+  public Sample(int id, SimpleStringProperty filename, SimpleStringProperty hash, 
+                SimpleStringProperty srcIp, SimpleStringProperty detectionDate, 
+                boolean analized, boolean malicious) {
     this.id = id;
     this.filename = filename;
     this.hash = hash;

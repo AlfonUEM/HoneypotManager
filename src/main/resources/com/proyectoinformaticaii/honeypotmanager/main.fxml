@@ -27,7 +27,7 @@
          <center>
             <TableView fx:id="tableView">
               <columns>
-                  <TableColumn fx:id="columnID" prefWidth="44.66666603088379" text="ID" />
+                  <TableColumn fx:id="columnId" prefWidth="44.66666603088379" text="ID" />
                 <TableColumn fx:id="columnHash" prefWidth="500.0" text="Hash" />
                 <TableColumn fx:id="columnFilename" prefWidth="200.0" text="Nombre fichero" />
                   <TableColumn fx:id="columnDetectionDate" prefWidth="150" text="Fecha Detección" />

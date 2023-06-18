@@ -24,18 +24,16 @@ public class StoredCredentials {
     FileReader fileReader = null;
     BufferedReader bufferReader;
     try {
-      fileReader = new FileReader (new File (this.filePath));
+      fileReader = new FileReader(new File(this.filePath));
       bufferReader = new BufferedReader(fileReader);
       this.ip = bufferReader.readLine();
       this.database = bufferReader.readLine();
       this.user = bufferReader.readLine();
       this.pass = bufferReader.readLine();
       returnValue = true;
-    }
-    catch (IOException exceptionRead) {
+    } catch (IOException exceptionRead) {
       exceptionRead.printStackTrace();
-    }
-    finally {
+    } finally {
       try {
         if (fileReader != null) {
           fileReader.close();
