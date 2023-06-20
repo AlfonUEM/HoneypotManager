@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
   }
 
   @FXML
-  private void onClickConnect(ActionEvent event) throws IOException {
+  private void onClickConnect(ActionEvent event) {
     Logger.getLogger(LoginController.class.getName()).log(Level.INFO, 
             "click onClickConnect");        
     Database baseDeDatos = new Database(textfieldIp.getText(),
@@ -69,7 +69,12 @@ public class LoginController implements Initializable {
         this.storedDredentials.setPass(textfieldPass.getText());
         this.storedDredentials.writeFile();
       }
-      App.switchToMainWindow(baseDeDatos);
+      try {
+        App.switchToMainWindow(baseDeDatos);
+      } catch (IOException ex) {
+        this.showConnectionError(ex.getMessage());
+        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+      }
     } else {
       this.showConnectionError(baseDeDatos.getLastError());
     }
