@@ -51,34 +51,38 @@ public class Database {
   
   public String getVirusTotalAPIKey() {
     String virusTotalAPIKey = "";
-    try {
-      Statement statement = mysqlConnection.createStatement();
-      ResultSet resultSet = statement.executeQuery(
-              "SELECT valor from configuracion where clave = \"VirusTotalAPIKey\"");
-      this.logger.log(Level.INFO, "virusTotalAPIKey obtenida");
-      if (resultSet.next()) {
-        virusTotalAPIKey = resultSet.getString("valor");
+    if (this.mysqlConnection != null) {
+      try {
+        Statement statement = mysqlConnection.createStatement();
+        ResultSet resultSet = statement.executeQuery(
+                "SELECT valor from configuracion where clave = \"VirusTotalAPIKey\"");
+        this.logger.log(Level.INFO, "virusTotalAPIKey obtenida");
+        if (resultSet.next()) {
+          virusTotalAPIKey = resultSet.getString("valor");
+        }
+        resultSet.close();
+      } catch (SQLException ex) {
+        this.logger.log(Level.SEVERE, null, ex);
       }
-      resultSet.close();
-    } catch (SQLException ex) {
-      this.logger.log(Level.SEVERE, null, ex);
     }
     return virusTotalAPIKey;
   }
   
   public boolean setVirusTotalAPIKey(String virusTotalAPIKey) {
     boolean returnValue = false;
-    try {
-      PreparedStatement preparedStatement = mysqlConnection.prepareStatement(
-              "UPDATE configuracion set valor = ? where clave = \"VirusTotalAPIKey\"");
-      preparedStatement.setString(1, virusTotalAPIKey);
-      int resultado = preparedStatement.executeUpdate();
-      if (resultado == 1) {
-        this.logger.log(Level.INFO, "virusTotalAPIKey actualizada");
-        returnValue = true;
+    if (this.mysqlConnection != null) {
+      try {
+        PreparedStatement preparedStatement = mysqlConnection.prepareStatement(
+                "UPDATE configuracion set valor = ? where clave = \"VirusTotalAPIKey\"");
+        preparedStatement.setString(1, virusTotalAPIKey);
+        int resultado = preparedStatement.executeUpdate();
+        if (resultado == 1) {
+          this.logger.log(Level.INFO, "virusTotalAPIKey actualizada");
+          returnValue = true;
+        }
+      } catch (SQLException ex) {
+        this.logger.log(Level.SEVERE, null, ex);
       }
-    } catch (SQLException ex) {
-      this.logger.log(Level.SEVERE, null, ex);
     }
     return returnValue;
   }
@@ -86,51 +90,58 @@ public class Database {
   
   public ArrayList<Sample> getSamples() {
     ArrayList<Sample> samples = new ArrayList();
-    try {
-      Statement statement = mysqlConnection.createStatement();
-      ResultSet resultSet = statement.executeQuery(
-              "SELECT id, nombre_fichero, hash, fecha_llegada, remitente_ip, analizado,"
-                      + " malicioso from muestras");
-      this.logger.log(Level.INFO, "Datos de ficheros adjuntos obtenidos");
-      while (resultSet.next()) {
-        Sample muestra = new Sample(resultSet.getInt("id"),
-                                    new SimpleStringProperty(resultSet.getString("nombre_fichero")),
-                                    new SimpleStringProperty(resultSet.getString("hash")),
-                                    new SimpleStringProperty(resultSet.getString("remitente_ip")),
-                                    new SimpleStringProperty(resultSet.getString("fecha_llegada")),
-                                    resultSet.getBoolean("analizado"),
-                                    resultSet.getBoolean("malicioso"));
-        samples.add(muestra);     
+    if (this.mysqlConnection != null) {
+      try {
+        Statement statement = mysqlConnection.createStatement();
+        ResultSet resultSet = statement.executeQuery(
+                "SELECT id, nombre_fichero, hash, fecha_llegada, remitente_ip, analizado,"
+                        + " malicioso from muestras");
+        this.logger.log(Level.INFO, "Datos de ficheros adjuntos obtenidos");
+        while (resultSet.next()) {
+          Sample muestra = new Sample(resultSet.getInt("id"),
+                                      new SimpleStringProperty(resultSet.getString("nombre_fichero")),
+                                      new SimpleStringProperty(resultSet.getString("hash")),
+                                      new SimpleStringProperty(resultSet.getString("remitente_ip")),
+                                      new SimpleStringProperty(resultSet.getString("fecha_llegada")),
+                                      resultSet.getBoolean("analizado"),
+                                      resultSet.getBoolean("malicioso"));
+          samples.add(muestra);     
+        }
+        resultSet.close();
+      } catch (SQLException ex) {
+        this.logger.log(Level.SEVERE, null, ex);
       }
-      resultSet.close();
-    } catch (SQLException ex) {
-      this.logger.log(Level.SEVERE, null, ex);
     }
     return samples;
   }   
 
   public void disconnect() {
-    try {
-      this.mysqlConnection.close();
-      this.logger.log(Level.INFO, "Desconectado de la BBDD");
-    } catch (SQLException ex) {
-      this.logger.log(Level.SEVERE, null, ex);
+    if (this.mysqlConnection != null) {
+      try {
+        this.mysqlConnection.close();
+        this.logger.log(Level.INFO, "Desconectado de la BBDD");
+        this.mysqlConnection = null;
+      } catch (SQLException ex) {
+        this.logger.log(Level.SEVERE, null, ex);
+      }
     }
   }
   
   public boolean deleteSample(Sample muestra) {
     boolean returnValue = false;
-    try {
-      PreparedStatement preparedStatement = mysqlConnection.prepareStatement(
+    if (this.mysqlConnection != null) {
+      try {
+        PreparedStatement preparedStatement = mysqlConnection.prepareStatement(
                                                               "DELETE FROM muestras where id = ?");
-      preparedStatement.setInt(1, muestra.getId());
-      int resultado = preparedStatement.executeUpdate();
-      if (resultado == 1) {
-        this.logger.log(Level.INFO, "Fichero adjunto borrado de la base de datos");
-        returnValue = true;
+        preparedStatement.setInt(1, muestra.getId());
+        int resultado = preparedStatement.executeUpdate();
+        if (resultado == 1) {
+          this.logger.log(Level.INFO, "Fichero adjunto borrado de la base de datos");
+          returnValue = true;
+        }
+      } catch (SQLException ex) {
+        this.logger.log(Level.SEVERE, null, ex);
       }
-    } catch (SQLException ex) {
-      this.logger.log(Level.SEVERE, null, ex);
     }
     return returnValue;
   }
