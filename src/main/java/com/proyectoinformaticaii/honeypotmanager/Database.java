@@ -14,15 +14,15 @@ import javafx.beans.property.SimpleStringProperty;
 public class Database {
 
   private Connection mysqlConnection = null;
-  private String srcIP = null; 
+  private String serverIP = null; 
   private String database = null; 
   private String user = null; 
   private String pass = null; 
   private String lastError = "";
   private Logger logger = null;
   
-  public Database(String srcIP, String database, String user, String pass) {
-    this.srcIP = srcIP;
+  public Database(String serverIP, String database, String user, String pass) {
+    this.serverIP = serverIP;
     this.database = database;
     this.user = user;
     this.pass = pass;
@@ -32,14 +32,18 @@ public class Database {
 
   public boolean connect() {
     boolean returnValue = false;
-    try {
-      Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.srcIP + ":3306/" 
-                                                    + this.database, this.user, this.pass);
-      this.mysqlConnection = conn;
-      this.logger.log(Level.INFO, "Conectado a la BBDD");
-      returnValue = true;
-    } catch (SQLException e) {
-      this.lastError = e.getMessage();
+    if (this.serverIP != null && this.database != null && this.user != null && this.pass != null ) {
+      try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://" + this.serverIP + ":3306/" 
+                                                      + this.database, this.user, this.pass);
+        this.mysqlConnection = conn;
+        this.logger.log(Level.INFO, "Conectado a la BBDD");
+        returnValue = true;
+      } catch (SQLException e) {
+        this.lastError = e.getMessage();
+      }
+    } else {
+      this.logger.log(Level.SEVERE, "Valores nulos");
     }
     return returnValue;
   }
