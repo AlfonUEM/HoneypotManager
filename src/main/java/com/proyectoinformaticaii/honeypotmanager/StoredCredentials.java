@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class StoredCredentials {
@@ -14,8 +16,16 @@ public class StoredCredentials {
   private String user = "";
   private String pass = "";
   private String filePath = "honeypot_almacen_credenciales";
+  private Encrypter encrypter = null;
+  private Logger logger = null;
   
   public StoredCredentials() {
+    this.logger = Logger.getLogger(StoredCredentials.class.getName());
+    try {
+      this.encrypter = new Encrypter();
+    } catch (Exception ex) {
+      this.logger.log(Level.SEVERE, null, ex);
+    } 
     this.readFromFile();
   }
   
@@ -30,16 +40,23 @@ public class StoredCredentials {
       this.database = bufferReader.readLine();
       this.user = bufferReader.readLine();
       this.pass = bufferReader.readLine();
+      if (this.encrypter != null) {
+        try {
+          this.pass = this.encrypter.decryptString(this.pass);
+        } catch (Exception ex) {
+          this.logger.log(Level.SEVERE, null, ex);
+        }
+      }
       returnValue = true;
     } catch (IOException exceptionRead) {
-      exceptionRead.printStackTrace();
+      this.logger.log(Level.SEVERE, null, exceptionRead);
     } finally {
       try {
         if (fileReader != null) {
           fileReader.close();
         }
       } catch (IOException exceptionClose) {
-        exceptionClose.printStackTrace();
+        this.logger.log(Level.SEVERE, null, exceptionClose);
       }
     }
     return returnValue;
@@ -87,18 +104,25 @@ public class StoredCredentials {
       printWriter.println(this.ip);
       printWriter.println(this.database);
       printWriter.println(this.user);
+      if (this.encrypter != null) {
+        try {
+          this.pass = this.encrypter.encryptString(this.pass);
+        } catch (Exception ex) {
+          this.logger.log(Level.SEVERE, null, ex);
+        }
+      }
       printWriter.println(this.pass);
       returnValue = true;
 
     } catch (IOException exceptionWrite) {
-      exceptionWrite.printStackTrace();
+      this.logger.log(Level.SEVERE, null, exceptionWrite);
     } finally {
       try {
         if (fileWriter != null) {
           fileWriter.close();
         }
       } catch (IOException exceptionClose) {
-        exceptionClose.printStackTrace();
+        this.logger.log(Level.SEVERE, null, exceptionClose);
       }
     }
     return returnValue;
